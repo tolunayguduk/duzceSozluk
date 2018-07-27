@@ -1,0 +1,124 @@
+﻿@using duzceSozluk.Models
+@{
+    ViewBag.Title = "Başlık Oluştur";
+    Kullanici k = (Kullanici)Session["Kullanici"];
+}
+<!-- /***************************************************************************** -->
+@section basliklar{
+    @foreach (var baslik in ViewBag.basliklar)
+    {
+        <li class="nav-item">
+            <a href="/timeLine/getEntry?id=@baslik.baslikID" class="nav-link">
+                <i class="nav-icon fa fa-circle-o text-danger"></i>
+                <p class="text">@baslik.baslik</p>
+            </a>
+        </li>
+    }
+}
+<!-- /***************************************************************************** -->
+@if (k == null)
+{
+    <div class="container">
+        <div class="row">
+            <div class="col-2"></div>
+            <div class="col-8">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">Profil Oluştur</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <!-- form start -->
+                    @using (Html.BeginForm("Index","Login",FormMethod.Post))
+                    {
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-2"></div>
+                                <div class="col-8">
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Kullanıcı Adınız</label>
+                                            <input type="text" name="nick" class="form-control" id="exampleInputEmail1" placeholder="Kullanıcı Adınız" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword1">Şifreniz</label>
+                                            <input type="password" name="sifre" class="form-control" id="exampleInputPassword1" placeholder="Şifreniz" required>
+                                        </div>
+
+                                    </div>
+                                    <!-- /.card-body -->
+                                    <div class="card-footer">
+
+
+                                        <div class="container">
+                                            <div class="row">
+                                                <div class="col-4">
+                                                    <a href="/signUp" class="btn btn-success">Kayıt OL</a>
+                                                </div>
+                                                <div class="col-4"></div>
+                                                <div class="col-4">
+                                                    <button type="submit" class="btn btn-primary">Giriş Yap</button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+                                    </div>
+                                </div>
+                                <div class="col-2"></div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="col*2"></div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="card card-primary">
+        <div class="card-header">
+            <h3 class="card-title">Başlık Oluştur</h3>
+        </div>
+        @using (Html.BeginForm())
+        {
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Başlık Adı</label>
+                    <input type="text" name="baslik" class="form-control" id="exampleInputEmail1" placeholder="Başlık Adı">
+                </div>
+                <div class="form-group">
+                    <label>Başlık Türü</label>
+                    <select class="form-control" name="tur">
+
+                        @foreach (var tur in ViewBag.turler)
+                        {
+                            <option>@tur.ad</option>
+                        }
+
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputFile">Başlık Fotoğrafı</label>
+                    <div class="input-group">
+                        <div class="custom-file">
+                            <input type="file" name="resim" class="custom-file-input" id="exampleInputFile">
+                            <label class="custom-file-label" for="exampleInputFile">Fotoğraf Seç</label>
+                        </div>
+                        <div class="input-group-append">
+                            <span class="input-group-text" id="">Yükle</span>
+                        </div>
+                    </div>
+                </div>
+                <input type="hidden" name="olusturan" value="@k.nick" />
+            </div>
+            <!-- /.card-body -->
+
+            <div class="card-footer">
+                <button type="submit" class="btn btn-primary">Başlık Oluştur</button>
+            </div>
+        }
+    </div>
+}
+<!-- /***************************************************************************** -->

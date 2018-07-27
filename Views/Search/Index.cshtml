@@ -1,0 +1,64 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+
+    if (Convert.ToInt32(TempData["nesne"]) == 1)
+    {
+        List<duzceSozluk.Models.Baslik> veri = ViewBag.veri;
+        foreach (duzceSozluk.Models.Baslik baslik in veri)
+        {
+<div class="col-12">
+    <!-- small box -->
+    <div class="small-box bg-info">
+        <div class="inner">
+            <a href="/timeLine/getEntry?id=@baslik.baslikID" class="nav-link">@baslik.baslik</a>
+        </div>
+    </div>
+</div>
+        }
+    }
+    else if (Convert.ToInt32(TempData["nesne"]) == 2)
+    {
+        List<duzceSozluk.Models.Kullanici> veri = ViewBag.veri;
+        foreach (duzceSozluk.Models.Kullanici kullanici in veri)
+        {
+<div class="col-12">
+    <!-- small box -->
+    <div class="small-box bg-info">
+        <div class="inner">
+            <a href="/Profil/Index/@kullanici.kullaniciID" class="nav-link">@kullanici.nick</a>
+        </div>
+    </div>
+</div>
+        }
+    }
+    else if (Convert.ToInt32(TempData["nesne"]) == 3)
+    {
+        List<duzceSozluk.Models.Entry> veri = ViewBag.veri;
+        foreach (duzceSozluk.Models.Entry entry in veri)
+        {
+<div class="col-12">
+    <!-- small box -->
+    <div class="small-box bg-info">
+        <div class="inner">
+            <a href="/Profil/Index/@entry.kullaniciID" class="nav-link">@entry.Kullanici.nick</a>
+            <p class="nav-link">@entry.icerik</p>
+        </div>
+    </div>
+</div>
+        }
+    }
+}
+@section basliklar{
+
+
+    @foreach (var baslik in ViewBag.basliklar)
+    {
+        <li class="nav-item">
+            <a href="/timeLine/getEntry?id=@baslik.baslikID" class="nav-link">
+                <i class="nav-icon fa fa-circle-o text-danger"></i>
+                <p class="text">@baslik.baslik</p>
+            </a>
+        </li>
+    }
+}

@@ -1,0 +1,106 @@
+﻿@model List<duzceSozluk.Models.Sikayet>
+@using duzceSozluk.Models
+@{
+    ViewBag.Title = "Sikayet";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+@if (TempData["key"] == "Incelendi")
+{
+    <div class="alert alert-success alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <h5><i class="icon fa fa-check"></i> İncelendi</h5>
+        Şikayet İncelendi
+    </div>
+}
+else if (TempData["key"] == "Islem Bekliyor")
+{
+    <div class="alert alert-danger alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <h5><i class="icon fa fa-remove"></i> İşlem Bekliyor</h5>
+        Şikayet İşlem Bekliyor
+    </div>
+}
+else if (TempData["key"] == "Şikayetler ve Entry Silindi")
+{
+    <div class="alert alert-success alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <h5><i class="icon fa fa-remove"></i> Silindi</h5>
+        Şikayetler ve Entry Silindi
+    </div>
+}
+else if (TempData["key"] == "Şikayet Silindi")
+{
+    <div class="alert alert-success alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <h5><i class="icon fa fa-remove"></i> Silindi</h5>
+        Şikayet Silindi
+    </div>
+}
+
+
+
+
+
+
+
+<div class="card card-default">
+    <div class="card-header">
+        <table>
+            <tr>
+                <td><h3>Şikayet Listesi</h3></td>
+            </tr>
+        </table>
+    </div>
+    <div class="card-body">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Şikayet Türü</th>
+                    <th>Entry</th>
+                    <th>Kullanıcı Nick</th>
+                    <th>Şikayet Tarihi</th>
+                    <th>Açıklama</th>
+                    <th>Durum</th>
+                    <th>İşlemler</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Sikayet s in Model)
+                {
+                    <tr>
+                        <td>@s.SikayetTur.tur</td>
+                        <td>@s.Entry.icerik</td>
+                        <td><a href="/Profil/Index/@s.kullaniciID">@s.Kullanici.nick</a></td>
+                        <td>@String.Format("{0:MM/dd/yyyy H:mm}", s.sikayet_tarihi)</td>
+                        <td>@s.aciklama</td>
+                        @if (s.durum == true)
+                        {
+                            <td><span class="badge badge-success">İncelendi</span></td>
+                        }
+                        else
+                        {
+                            <td><span class="badge badge-danger">İşlem Bekliyor</span></td>
+                        }
+                        <td>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-primary">İşlemler</button>
+                                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                    <span class="caret"></span>
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                </button>
+                                <div class="dropdown-menu" role="menu">
+                                    <a class="dropdown-item" href="/Admin/Incele/@s.sikayetID"><i class="fa fa-check-square"></i> İncelendi</a>
+                                    <a class="dropdown-item" href="/Admin/EntrySil/@s.entryID" onClick="return confirm('Bu şikayeti silmek istediğinizden emin misiniz?')"><i class="fa fa-remove"></i> Entry Sil</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="/Admin/SikayetSil/@s.sikayetID" onClick="return confirm('Bu şikayeti silmek istediğinizden emin misiniz?')"><i class="fa fa-remove"></i> Şikayeti Sil</a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+

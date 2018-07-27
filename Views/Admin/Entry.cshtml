@@ -1,0 +1,56 @@
+﻿@model List<duzceSozluk.Models.Entry>
+@using duzceSozluk.Models
+@{
+    ViewBag.Title = "Entry";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+@if (TempData["key"] == "Entry Silindi") 
+{
+    <div class="alert alert-success alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <h5><i class="icon fa fa-remove"></i> Silindi</h5>
+        Entry Silindi.
+    </div>
+}
+
+
+<div class="card card-default">
+    <div class="card-header">
+        <table style="width:100%">
+            <tr>
+                <td><h3>Entry Listesi</h3></td>
+
+            </tr>
+        </table>
+    </div>
+    <div class="card-body">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Kullanıcı Nick</th>
+                    <th>İçerik</th>
+                    <th>Oluşturma Tarihi</th>
+                    <th>Başlığı</th>
+                    <th>İşlemler</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Entry s in Model)
+                {
+                    <tr>
+                        <td>@s.Kullanici.nick</td>
+                        <td>@s.icerik</td>
+                        <td>@String.Format("{0: dd/mm/yyyy }", s.olusturma_tarihi)</td>
+                        <td>@s.Baslik.baslik</td>
+                        <td>
+                            <a href="/Admin/EntrySile/@s.entryID" class="btn btn-sm btn-danger" onClick="return confirm('Bu entryi silmek istediğinizden emin misiniz?')"><i class="fa fa-remove"></i></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+

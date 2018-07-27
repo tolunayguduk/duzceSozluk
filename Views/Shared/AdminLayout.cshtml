@@ -1,0 +1,196 @@
+﻿@using  duzceSozluk.Models
+@{ 
+    Kullanici k = (Kullanici)Session["Kullanici"];
+}
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>AdminLTE 3 | Blank Page</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="/Content/tema/dist/css/adminlte.min.css">
+    <!-- Google Font: Source Sans Pro -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+</head>
+<body class="sidebar-mini sidebar-collapse">
+    <!-- Site wrapper -->
+    <div class="wrapper">
+        <!-- Navbar -->
+        <nav class="main-header navbar navbar-expand bg-white navbar-light border-bottom">
+            <!-- Left navbar links -->
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="pushmenu" href="/Content/tema/#"><i class="fa fa-bars"></i></a>
+                </li>
+                <!--Üst Kısım-->
+
+
+            </ul>
+            <ul class="navbar-nav ml-auto">
+
+                <li class="nav-item dropdown" style="margin-left:10px;">
+                    <a class="nav-link" data-toggle="dropdown" href="#">
+                        <img class="profile-user-img img-fluid img-circle" src="~/Content/img/@k.fotograf" style="width:32px; height:32px; " />
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+
+
+
+                        <span class="dropdown-item dropdown-header">
+
+                            <img class="profile-user-img img-fluid img-circle" src="~/Content/img/@k.fotograf" style="width:50px; height:50px; " />
+
+                            <a href="/Profil/Index/@k.kullaniciID">   @k.ad @k.soyad</a>
+                        </span>
+
+
+                        <a href="/login/logout" class="btn btn-danger pull-right">Log out</a>
+
+
+                    </div>
+                </li>
+            </ul>
+
+            
+            <!-- SEARCH FORM -->
+            <!-- Right navbar links -->
+
+        </nav>
+        <!-- /.navbar -->
+        <!-- Main Sidebar Container -->
+        <aside class="main-sidebar sidebar-dark-primary elevation-4">
+            <!-- Brand Logo -->
+            <a href="/Admin/Index" class="brand-link">
+                <img src="~/Content/tema/dist/img/defaultlogo.png" alt="Duzce Logo" class="brand-image img-circle elevation-3"
+                     style="opacity: .8">
+                <span class="brand-text font-weight-light"><b>DuzceSozluk-Admin</b></span>
+            </a>
+            <!-- Sidebar -->
+            <div class="sidebar">
+
+
+                <!-- Sidebar Menu -->
+                <nav class="mt-2">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                        <!-- Add icons to the links using the .nav-icon class
+                    with font-awesome or any other icon font library -->
+                        <li class="nav-item">
+                            <a href="/Admin/Index" class="nav-link">
+                                <i class="fa fa-circle-o nav-icon"></i>
+                                <p>Genel Bakış</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/Admin/Sikayet" class="nav-link">
+                                <i class="fa fa-circle-o nav-icon"></i>
+                                <p>Şikayet</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/Admin/Kullanici" class="nav-link">
+                                <i class="fa fa-circle-o nav-icon"></i>
+                                <p>Kullanıcılar</p>
+                            </a>
+                        </li>
+                        <li class="nav-item has-treeview">
+                            <a href="" class="nav-link">
+                                <i class="nav-icon fa fa-dashboard"></i>
+                                <p>
+                                    İşlemler
+                                    <i class="right fa fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+
+                                <li class="nav-item">
+                                    <a href="/Admin/Baslik" class="nav-link">
+
+                                        <p>Başlık</p>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="nav nav-treeview">
+
+                                <li class="nav-item">
+                                    <a href="/Admin/Entry" class="nav-link">
+
+                                        <p>Entry</p>
+                                    </a>
+                                </li>
+                            </ul>
+                            @*<ul class="nav nav-treeview"> 
+                                <li class="nav-item">
+                                    <a href="/Content/tema/#" class="nav-link">
+
+                                        <p>Beğeni</p>
+                                    </a>
+                                </li>
+                            </ul>*@
+                        </li>
+
+                    </ul>
+                </nav>
+                <!-- /.sidebar-menu -->
+            </div>
+            <!-- /.sidebar -->
+        </aside>
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6"> 
+                            @RenderSection("Baslik", false)
+                        </div>
+                        <div class="col-sm-6">
+
+                        </div>
+                    </div>
+                </div><!-- /.container-fluid -->
+            </section>
+            <!-- Main content -->
+            <section class="content">
+                <!-- Default box -->
+                @RenderBody()
+                <!-- /.card -->
+            </section>
+            <!-- /.content -->
+        </div>
+        <!-- /.content-wrapper -->
+        <footer class="main-footer">
+            
+            <strong>Copyright &copy; 2018 TB.</strong> All rights
+            reserved.
+        </footer>
+        <!-- Control Sidebar -->
+        <aside class="control-sidebar control-sidebar-dark">
+            <!-- Control sidebar content goes here -->
+        </aside>
+        <!-- /.control-sidebar -->
+    </div>
+    <!-- ./wrapper -->
+    <!-- jQuery -->
+    <script src="/Content/tema/plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="/Content/tema/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- SlimScroll -->
+    <script src="/Content/tema/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+    <!-- FastClick -->
+    <script src="/Content/tema/plugins/fastclick/fastclick.js"></script>
+    <!-- AdminLTE App -->
+    <script src="/Content/tema/dist/js/adminlte.min.js"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="/Content/tema/dist/js/demo.js"></script>
+</body>
+</html>

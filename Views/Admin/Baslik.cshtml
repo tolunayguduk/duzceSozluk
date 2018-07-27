@@ -1,0 +1,55 @@
+﻿@model List<duzceSozluk.Models.Baslik>
+@using duzceSozluk.Models
+@{
+    ViewBag.Title = "Baslik";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+@if (TempData["key"] == "Başlık Silindi")
+{
+<div class="alert alert-success alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+    <h5><i class="icon fa fa-remove"></i> Silindi</h5>
+    Başlık ve başlığa bağlı entry ler silindi.
+</div>
+}
+
+
+<div class="card card-default">
+    <div class="card-header">
+        <table style="width:100%">
+            <tr>
+                <td><h3>Başlık Listesi</h3></td>
+
+            </tr>
+        </table>
+    </div>
+    <div class="card-body">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Başlık</th>
+                    <th>Oluşturma Tarihi</th>
+                    <th>Kullanıcı Nick</th>
+                    <th>Başlık Türü</th>
+                    <th>İşlemler</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Baslik s in Model)
+                {
+                    <tr>
+                        <td>@s.baslik</td>
+                        <td>@String.Format("{0: dd/mm/yyyy }", s.olusturma_tarihi)</td>
+                        <td>@s.Kullanici.nick</td>
+                        <td>@s.BaslikTur.ad</td>
+                        <td>
+                            <a href="/Admin/BaslikSil/@s.baslikID" class="btn btn-sm btn-danger" onClick="return confirm('Bu başlığı silmek istediğinizden emin misiniz?')"><i class="fa fa-remove"></i></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+

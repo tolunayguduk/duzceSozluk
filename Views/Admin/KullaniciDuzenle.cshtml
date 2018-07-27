@@ -1,0 +1,57 @@
+﻿@model duzceSozluk.Models.Kullanici
+@{
+    ViewBag.Title = "KullaniciDüzenle";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+@using (Html.BeginForm("KullaniciDuzenle","Admin"
+    ,FormMethod.Post,new {@class="form-control" , @enctype = "multipart/form-data" }))
+
+{
+
+    <div class="card card-success">
+        <div class="card-header">
+            <h3>Kullanıcı Düzenle</h3>
+        </div>
+        <div class="card-body">
+            <div class="form-group">
+                <label>Ad</label>
+                <input type="hidden" value="@Model.kullaniciID" name="kullaniciID" />
+                <input type="hidden" value="@Model.onay" name="onay" /> 
+
+                <input type="text" class="form-control" value="@Model.ad" name="ad" />
+            </div>
+            <div class="form-group">
+                <label>Soyad</label>
+                <input type="text" class="form-control" value="@Model.soyad" name="soyad" />
+            </div>
+            <div class="form-group">
+                <label>E - Mail</label>
+                <input type="text" class="form-control" value="@Model.email" name="email" />
+            </div>
+            <div class="form-group">
+                <label>Nick</label>
+                <input type="text" class="form-control" value="@Model.nick" name="nick" />
+            </div>
+            <div class="form-group">
+                <label>Şifre</label>
+                <input type="text" class="form-control" value="@Model.sifre" name="sifre" />
+            </div>
+            <div class="form-group">
+                <label>Fotoğrafınızı Değiştirmek İstemiyorsanız Boş Geçiniz</label>
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src="~/Content/img/@Model.fotograf" style="width:286px;height:180px">
+                </div>
+                <input type="file" class="form-control" name="fotograf" />
+            </div>
+            <div class="form-group">
+                <label>Yetki Adı</label>
+                @Html.DropDownListFor(x => x.yetkiID, (IEnumerable<SelectListItem>)ViewBag.Yetki, "Seçiniz", new { @class = "form-control" })
+            </div>
+
+            <button type="submit" class="btn btn-warning"> Düzenle </button>
+
+        </div>
+    </div>
+
+}

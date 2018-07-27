@@ -1,0 +1,85 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+}
+
+
+@section basliklar{
+
+
+    @foreach (var baslik in ViewBag.basliklar)
+    {
+        <li class="nav-item">
+            <a href="/timeLine/getEntry?id=@baslik.baslikID" class="nav-link">
+                <i class="nav-icon fa fa-circle-o text-danger"></i>
+                <p class="text">@baslik.baslik</p>
+            </a>
+        </li>
+    } 
+} 
+
+        <div class="container">
+            <div class="row">
+                <div class="col-2"></div>
+                <div class="col-8">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">Profil Oluştur</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <!-- form start -->
+                        @using (Html.BeginForm())
+                        {
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-2"></div>
+                                    <div class="col-8">
+                                        <div class="card-body">
+                                            @if (ViewBag.message != null)
+                                            {
+                                                <div class="alert alert-danger">
+                                                    <strong>Kullanıcı Adı veya Şifre Hatalı!</strong>
+                                                </div>
+                                            }
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">Kullanıcı Adınız</label>
+                                                <input type="text" name="nick" class="form-control" id="exampleInputEmail1" placeholder="Kullanıcı Adınız" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="exampleInputPassword1">Şifreniz</label>
+                                                <input type="password" name="sifre" class="form-control" id="exampleInputPassword1" placeholder="Şifreniz" required>
+                                            </div>
+
+                                        </div>
+                                        <!-- /.card-body -->
+                                        <div class="card-footer">
+
+
+                                            <div class="container">
+                                                <div class="row">
+                                                    <div class="col-4">
+                                                        <a href="/signUp" class="btn btn-success">Kayıt OL</a>
+                                                    </div>
+                                                    <div class="col-4"></div>
+                                                    <div class="col-4">
+                                                        <button type="submit" class="btn btn-primary">Giriş Yap</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+
+                                        </div>
+                                    </div>
+                                    <div class="col-2"></div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div class="col*2"></div>
+            </div>
+        </div>
+
+
+        

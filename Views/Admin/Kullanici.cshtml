@@ -1,0 +1,80 @@
+﻿@model List<duzceSozluk.Models.Kullanici>
+@using duzceSozluk.Models
+@{
+    ViewBag.Title = "Kullanici";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+@if (TempData["key"] == "Kullanıcı Düzenlendi")
+{
+    <div class="alert alert-warning alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <h5><i class="icon fa fa-check"></i> Düzenlendi</h5>
+       Kullanıcı Düzenlendi
+    </div>
+}
+else if (TempData["key"] == "Kullanıcı Silindi")
+{
+    <div class="alert alert-success alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <h5><i class="icon fa fa-remove"></i> Silindi</h5>
+        Kullanıcı ve kullanıcıya bağlı bütün öğeler silindi
+    </div>
+}
+  
+
+<div class="card card-default">
+    <div class="card-header">
+        <table style="width:100%">
+            <tr>
+                <td><h3>Kullanıcı Listesi</h3></td>
+                <td class="pull-right"></td>
+            </tr>
+        </table>
+    </div>
+    <div class="card-body">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Fotoğraf</th>
+                    <th>Ad Soyad</th>
+                    <th>E - Mail</th>
+                    <th>Kullanıcı Nick</th>
+                    <th>Şifre</th>
+                    <th>Onay</th>
+                    <th>Kayıt Tarihi</th>
+                    <th>Yetki</th>
+                    <th>İşlemler</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Kullanici s in Model)
+                {
+                    <tr>
+                        <td><img src="~/Content/img/@s.fotograf" style="width:28px;height:28px" /></td>
+                        <td>@s.ad @s.soyad</td>
+                        <td>@s.email</td>
+                        <td>@s.nick</td>
+                        <td>@s.sifre</td>
+                        @if (s.onay == true)
+                        {
+                            <td><span class="badge badge-success">Onaylı</span></td>
+                        }
+                        else
+                        {
+                            <td><span class="badge badge-danger">Onay Bekliyor</span></td>
+                        }
+
+                        <td>@String.Format("{0: dd/mm/yyyy }", s.kayit_tarihi)</td>
+                        <td>@s.Yetki.yetki1</td>
+                        <td>
+                            <a href="/Admin/KullaniciDuzenle/@s.kullaniciID" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i></a>
+                            <a href="/Admin/KullaniciSil/@s.kullaniciID" class="btn btn-sm btn-danger" onClick="return confirm('Bu kullanıcıyı silmek istediğinizden emin misiniz?')" ><i class="fa fa-remove"></i></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+

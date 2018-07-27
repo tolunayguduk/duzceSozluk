@@ -1,0 +1,195 @@
+﻿@using duzceSozluk.Models
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+@model List<Sikayet>
+@{
+    List<Begeni> begeni = ViewBag.begeni;
+    List<Entry> entry = ViewBag.entry;
+    List<BaslikTur> baslıktur = ViewBag.baslıktur;
+    List<Baslik> baslık = ViewBag.baslık;
+    List<Kullanici> kullanicisay = ViewBag.kullanicisay;
+    List<Kullanici> kullanici = ViewBag.kullanici;
+    List<Sikayet> sikayetsay = Model.ToList();
+    List<Sikayet> sikayet = Model.OrderByDescending(x => x.sikayet_tarihi).Take(7).ToList();
+
+}
+<div class="row">
+    <div class="col-sm-6 col-md-2">
+        <div class="info-box">
+            <span class="info-box-icon bg-info elevation-1"><i class="fa fa-star-o"></i></span>
+            <div class="info-box-content">
+                <span class="info-box-text">Beğeniler</span>
+                <span class="info-box-number">
+                    @begeni.Count()
+
+                </span>
+            </div>
+            <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+    </div>
+    <div class="col-sm-6 col-md-2">
+        <div class="info-box">
+            <span class="info-box-icon bg-info elevation-1"><i class="fa fa-comments-o"></i></span>
+            <div class="info-box-content">
+                <span class="info-box-text">Entry</span>
+                <span class="info-box-number">
+                    @entry.Count()
+
+                </span>
+            </div>
+            <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+    </div>
+    <div class=" col-sm-6 col-md-2">
+        <div class="info-box">
+            <span class="info-box-icon bg-info elevation-1"><i class="fa fa-header"></i></span>
+            <div class="info-box-content">
+                <span class="info-box-text">Başlık Tür</span>
+                <span class="info-box-number">
+                    @baslıktur.Count()
+
+                </span>
+            </div>
+            <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+    </div>
+    <div class=" col-sm-6 col-md-2">
+        <div class="info-box">
+            <span class="info-box-icon bg-info elevation-1"><i class="fa fa-hand-lizard-o"></i></span>
+            <div class="info-box-content">
+                <span class="info-box-text">Başlıklar</span>
+                <span class="info-box-number">
+                    @baslık.Count()
+
+                </span>
+            </div>
+            <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+    </div>
+
+    <div class=" col-sm-6 col-md-2">
+        <div class="info-box">
+            <span class="info-box-icon bg-info elevation-1"><i class="fa fa-users"></i></span>
+            <div class="info-box-content">
+                <span class="info-box-text">Kullanıcılar</span>
+                <span class="info-box-number">
+                    @kullanicisay.Count()
+
+                </span>
+            </div>
+            <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+    </div>
+
+    <div class=" col-sm-6 col-md-2">
+        <div class="info-box">
+            <span class="info-box-icon bg-info elevation-1"><i class="fa fa-info"></i></span>
+            <div class="info-box-content">
+                <span class="info-box-text">Şikayetler</span>
+                <span class="info-box-number">
+                    @sikayetsay.Count()
+
+                </span>
+            </div>
+            <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+    </div>
+
+
+    <div class="card col-md-7">
+        <div class="card-header border-transparent">
+            <h3 class="card-title">Son Şikayetler</h3>
+
+            <div class="card-tools">
+               
+            </div>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table m-0">
+                    <thead>
+                        <tr>
+                            <th>Şikayet ID</th>
+                            <th>Entry</th>
+                            <th>Kullanıcı</th>
+                            <th>Şikayet Tarihi</th>
+                            <th>Şikayet Tür</th>
+                            <th>Şikayet Durum</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach (var item in sikayet)
+                        {
+                            <tr>
+                                <td>@item.sikayetID</td>
+                                <td>@item.Entry.icerik</td>
+                                <td>@item.Kullanici.ad @item.Kullanici.soyad</td>
+                                <td>@item.sikayet_tarihi</td>
+                                <td>@item.sikayetTurID</td>
+
+                                @if (item.durum == true)
+                                {
+                                    <td><span class="badge badge-success">İncelendi</span></td>
+                                }
+                                else
+                                {
+                                    <td><span class="badge badge-danger">İşlem Bekliyor</span></td>
+                                }  
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.table-responsive -->
+        </div>
+        <!-- /.card-body -->
+        <div class="card-footer clearfix">
+            
+        </div>
+        <!-- /.card-footer -->
+    </div>
+    <div class="card col-md-5">
+        <div class="card-header">
+            <h3 class="card-title">Son Üyeler</h3>
+            <div class="card-tools">
+
+            </div>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body p-0">
+            <ul class="users-list clearfix">
+                @foreach (var item in kullanici)
+                {
+                    <li>
+                        <img style="width:32px;height:32px" src="~/Content/img/@item.fotograf" alt="User Image">
+                        <a class="users-list-name" href="#">@item.ad @item.soyad</a>
+                        <span class="users-list-date">@item.kayit_tarihi</span>
+                    </li>
+                }
+            </ul>
+            <!-- /.users-list -->
+        </div>
+        <!-- /.card-body -->
+        <div class="card-footer text-center">
+            <a href="javascript::">Bütün kullanıcılar</a>
+        </div>
+        <!-- /.card-footer -->
+    </div>
+</div>
+
+
+
+
